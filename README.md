@@ -112,6 +112,22 @@ Replace `/path/to/your/downloaded/training/data` and `/path/to/your/downloaded/v
 
 This guide should get you started with training a deep learning model using DeepD3. If you have any questions, feel free to open an issue on this repository.
 
+
+### Model Predictions and 3D roi generation for dendritic spines
+
+This guide will explain how to use a trained model to generate predictions on a new data stack and 3d roi generation of spines.
+We have prepared a Jupyter notebook `3Droi_generation.ipynb` in the folder `examples`. Please refer to this notebook for detailed code execution.
+
+DeepD3 Benchmark Dataset
+
+The DeepD3 Benchmark dataset is used for prediction model and performance evaluation. It was collected from the [DeepD3 Website](https://deepd3.forschung.fau.de/). This dataset contains annotated samples of dendrites and their corresponding spines, serving as an ideal testbed for the development and evaluation of the machine learning model. The dataset is used here to predict dendritic spine structures in 3D images and evaluate the performance of the model.
+
+Please make sure to download and place the dataset in the correct directory as per the file paths specified in the code. The link to the DeepD3 dataset can be found here:
+
+[DeepD3 Dataset](https://zenodo.org/record/7590773)
+
+
+
 ### Inference
 
 Open the inference mode using `deepd3-inference`. Load your stack of choice (we currently support TIF stacks) and specify the XY and Z dimensions. Next, you can segment dendrites and dendritic spines using a DeepD3 model from [the model zoo]() by clicking on `Analyze -> Segment dendrite and spines`. Afterwards, you may clean the predictions by clicking on `Analyze -> Cleaning`. Finally, you may build 2D or 3D ROIs using the respective functions in `Analyze`. To test the 3D ROI building, double click in the stack to a region of interest. A window opens that allows you to play with the hyperparameters and segments 3D ROIs in real-time.
