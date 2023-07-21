@@ -14,7 +14,7 @@ These instructions will get you a copy of the project up and running on your loc
 1. Python 3.7 or later.
 2. Other dependencies specified in the requirements.txt file.
 
-# DeepD3
+## DeepD3
 
 DeepD3, a dedicated framework for the segmentation and detection of dendritic spines and dendrites.
 
@@ -28,7 +28,7 @@ With DeepD3, you are able to
 * export results to your favourite biomedical image analysis platform
 * use command-line or graphical user interfaces
 
-## How to install and run DeepD3
+### How to install and run DeepD3
 
 DeepD3 is written in Python. First, please download and install any Python-containing distribution, such as [Anaconda](https://www.anaconda.com/products/distribution). We recommend Python 3.7 and more recent version.
 
@@ -54,7 +54,7 @@ If you would like to access DeepD3-GUIs, use the following two shortcuts in your
     # Opening the training utilities
     deepd3-training
 
-## Model zoo
+### Model zoo
 
 We provide a comprehensive training dataset on zenodo and the [DeepD3 Website](https://deepd3.forschung.fau.de/):
 
