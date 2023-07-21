@@ -127,6 +127,20 @@ Please make sure to download and place the dataset in the correct directory as p
 [DeepD3 Dataset](https://zenodo.org/record/7590773)
 
 
+### Performance evaluation
+
+This guide will explain how to use the 3d rois for performance evaluation of model. 
+We have prepared a Jupyter notebook `performance_evaluation.ipynb` in the folder `examples`. Please refer to this notebook for detailed code execution.
+
+The script utilizes techniques such as DBSCAN for initial clustering, KMeans for splitting large clusters, and distance-based thresholds to clean up clusters and merge adjacent ones. The final output is a labeled 3D scatter plot of the identified clusters and performance metrics such as Recall, Precision, and F1 Score calculated by comparing deepd3 roi results with human annotations.
+
+
+Input
+
+The script requires two input CSV files:
+
+* `roidata.csv`: Contains information about the ROIs identified by the deepd3.You will get this file as the output of previous results.
+* `Annotations_and_Clusters.csv` : Contains the manually annotated data. You will get this from [DeepD3 website](https://zenodo.org/record/7590773)
 
 ### Inference
 
