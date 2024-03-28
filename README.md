@@ -32,7 +32,9 @@ If you want to use the DeepD3 Neural Network inference mode, please install **Te
     # With additional GPU support
     conda install tensorflow-gpu
 
-If you would like to access DeepD3-GUIs, use the following two shortcuts in your favourite shell:
+**Note:** Tensorflow has changed a lot in the recent months, please check back with the most recent [installation manual](https://www.tensorflow.org/install).
+
+If you would like to access DeepD3-GUIs, use the following two shortcuts in your favorite shell:
 
     # Opening the segmentation and ROI building GUI
     deepd3-inference
@@ -103,4 +105,17 @@ Most functions can be assessed using a batch command script located in `deepd3/i
 
 ## How to cite
 
-DeepD3 is available as preprint soon.
+        @article{10.1371/journal.pcbi.1011774,
+            doi = {10.1371/journal.pcbi.1011774},
+            author = {Fernholz, Martin H. P. AND Guggiana Nilo, Drago A. AND Bonhoeffer, Tobias AND Kist, Andreas M.},
+            journal = {PLOS Computational Biology},
+            publisher = {Public Library of Science},
+            title = {DeepD3, an open framework for automated quantification of dendritic spines},
+            year = {2024},
+            month = {02},
+            volume = {20},
+            url = {https://doi.org/10.1371/journal.pcbi.1011774},
+            pages = {1-19},
+            number = {2},
+        }
+
