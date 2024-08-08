@@ -79,7 +79,7 @@ if __name__ == '__main__':
 
     if args.clean_spines:
         print("Cleaning spines")
-        s = S.cleanSpines(args.dendrite_threshold, args.dendrite_Dilation)
+        s = S.cleanSpines(args.dendrite_threshold, args.dendrite_dilation)
         S.prediction[..., 1] = s
 
     print("Saving predictions")
@@ -101,7 +101,7 @@ if __name__ == '__main__':
 
         r = ROI2D_Creator(S.prediction[..., 0],
             S.prediction[..., 1],
-            args.roi_threshold)
+            args.roi_areaThreshold)
 
         r.create(args.watershed)
 
