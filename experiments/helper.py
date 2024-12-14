@@ -7,7 +7,7 @@ sm.set_framework("tf.keras")
 import matplotlib.pyplot as plt
 from tensorflow.keras.callbacks import Callback, ModelCheckpoint, CSVLogger, LearningRateScheduler, TensorBoard
 import wandb
-
+import tqdm
 class MetricsPlotter(Callback):
     def __init__(self, save_dir):
         super().__init__()
