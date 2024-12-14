@@ -135,3 +135,6 @@ dmypy.json
 .pyre/
 deepd3/model/simple_unet.py
 examples/Training DeepD3 model UNet.ipynb
+
+# Wandb files
+wandb
