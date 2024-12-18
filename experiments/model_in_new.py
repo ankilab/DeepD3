@@ -1,9 +1,34 @@
 import tensorflow as tf
 from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Input, Conv2D, Concatenate, MaxPool2D, \
-    UpSampling2D, BatchNormalization, Activation, Add,GroupNormalization
+    UpSampling2D, BatchNormalization, Activation, Add, Layer
 
-def convlayer(x, filters, activation, name, residual=None, use_batchnorm=True):
+class InstanceNormalization(Layer):
+    """Custom Instance Normalization Layer"""
+    def __init__(self, epsilon=1e-5, **kwargs):  # Added **kwargs to handle additional parameters like name
+        super(InstanceNormalization, self).__init__(**kwargs)  # Pass kwargs to parent class
+        self.epsilon = epsilon
+
+    def build(self, input_shape):
+        depth = input_shape[-1]
+        self.scale = self.add_weight(
+            name='scale',
+            shape=[depth],
+            initializer='ones',
+            trainable=True)
+        self.offset = self.add_weight(
+            name='offset',
+            shape=[depth],
+            initializer='zeros',
+            trainable=True)
+
+    def call(self, x):
+        mean, variance = tf.nn.moments(x, axes=[1, 2], keepdims=True)
+        inv = tf.math.rsqrt(variance + self.epsilon)
+        normalized = (x - mean) * inv
+        return self.scale * normalized + self.offset
+
+def convlayer(x, filters, activation, name, residual=None, use_instancenorm=True):
     """Convolutional layer with normalization and residual connection
 
     Args:
@@ -12,18 +37,18 @@ def convlayer(x, filters, activation, name, residual=None, use_batchnorm=True):
         activation (str): Activation function
         name (str): Description of layer
         residual (Keras.layer, optional): Residual layer. Defaults to None.
-        use_batchnorm (bool, optional): Use of batch normalization. Defaults to True.
+        use_instancenorm (bool): Use of instance normalization. Defaults to True.
 
     Returns:
         Keras.layer: Full convolutional procedure
     """
     x = Conv2D(filters, 3, padding='same', use_bias=False, name=name)(x)
 
-    if use_batchnorm:
-        x = BatchNormalization(name=name+"_BN")(x)
+    if use_instancenorm:
+        x = InstanceNormalization(name=name+"_InstanceNorm")(x)
 
     if type(residual) is not type(None):
-        x = Add(name=name+"_residual_connection")((residual, x))
+        x = Add(name=name+"_residual_connection")([residual, x])  # Fixed tuple syntax
 
     x = Activation(activation, name=name+"_activation")(x)
     return x
@@ -105,7 +130,7 @@ def DeepD3_Model(filters=32, input_shape=(128, 128, 1), layers=4, activation="sw
     
     # Two decoder, for dendrites and spines each
     dendrites = decoder(x, filters, layers, to_concat.copy(), "dendrites", activation)
-    spines    = decoder(x, filters, layers, to_concat.copy(), "spines", activation)
+    spines = decoder(x, filters, layers, to_concat.copy(), "spines", activation)
 
     return Model(model_input, [dendrites, spines])
 
@@ -116,7 +141,7 @@ if __name__ == '__main__':
     # Create Model
     m = DeepD3_Model(8, input_shape=(48,48,1))
 
-    # Create a random dataset of 100 images of tile size 128x128
+    # Create a random dataset of 100 images of tile size 48x48
     X = np.random.randn(48*48*100).reshape(100, 48, 48, 1)
 
     print(m.summary())

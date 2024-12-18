@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 import wandb
 
 # DeepD3 
-from model_non import DeepD3_Model
+from model_in import DeepD3_Model
 from datagen import DataGeneratorStream
 from helper import MetricsPlotter
 
@@ -48,7 +48,7 @@ def schedule(epoch, lr):
     else:
         return float(lr * tf.math.exp(-0.1))
 
-metric_save="metrics_1"
+metric_save="metrics_3"
 os.makedirs(metric_save,exist_ok=True)
 
 EPOCHS = 30
@@ -69,8 +69,8 @@ m.compile(
 )
 
 # Callbacks
-mc = ModelCheckpoint("Experiment_NON.weights.h5", save_best_only=True,save_weights_only=True)
-csv = CSVLogger("Experiment_NON.csv")
+mc = ModelCheckpoint("Experiment_1.weights.h5", save_best_only=True,save_weights_only=True)
+csv = CSVLogger("Experiment_1.csv")
 lrs = LearningRateScheduler(schedule)
 metrics_plotter = MetricsPlotter(metric_save)
 
@@ -84,6 +84,6 @@ h = m.fit(
 )
 
 # Save model weights
-m.save("Experiment_NON.h5",save_format='h5')
+m.save("Experiment_1.h5",save_format='h5')
 
 wandb.finish()
