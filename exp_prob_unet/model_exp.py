@@ -177,38 +177,3 @@ class DualOutputProbabilisticUNet(Model):
             
         return tf.stack(dendrite_samples, axis=1), tf.stack(spine_samples, axis=1)
 
-@tf.function
-def prob_unet_dual_loss(y_true, y_pred, posterior_dists, prior_dist, 
-                        reconstruction_weight=1.0, kl_weight=1.0):
-    """
-    Custom loss function for dual-output Probabilistic U-Net
-    
-    Args:
-        y_true: Tuple of (dendrite_masks, spine_masks)
-        y_pred: Tuple of (dendrite_pred, spine_pred)
-        posterior_dists: Tuple of (posterior_dendrites, posterior_spines)
-        prior_dist: Prior distribution
-        reconstruction_weight: Weight for reconstruction loss
-        kl_weight: Weight for KL divergence loss
-    """
-    dendrite_true, spine_true = y_true
-    dendrite_pred, spine_pred = y_pred
-    posterior_dendrites, posterior_spines = posterior_dists
-    
-    # Reconstruction losses (Binary Cross Entropy)
-    recon_loss_dendrites = tf.reduce_mean(
-        tf.keras.losses.binary_crossentropy(dendrite_true, dendrite_pred))
-    recon_loss_spines = tf.reduce_mean(
-        tf.keras.losses.binary_crossentropy(spine_true, spine_pred))
-    
-    # KL divergences
-    kl_div_dendrites = tf.reduce_mean(
-        tfd.kl_divergence(posterior_dendrites, prior_dist))
-    kl_div_spines = tf.reduce_mean(
-        tfd.kl_divergence(posterior_spines, prior_dist))
-    
-    # Combine losses
-    total_recon_loss = (recon_loss_dendrites + recon_loss_spines) / 2
-    total_kl_loss = (kl_div_dendrites + kl_div_spines) / 2
-    
-    return reconstruction_weight * total_recon_loss + kl_weight * total_kl_loss
