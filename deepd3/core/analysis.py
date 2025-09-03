@@ -758,7 +758,10 @@ class ROI3D_Creator(QObject):
         if applyWatershed:
             D = distance_transform_edt(labels > 0)
             # Seed generation
-            localMax = peak_local_max(D, indices=False, min_distance=0, footprint=np.ones((3,3,3)), exclude_border=1)
+            coordinates = peak_local_max(D, min_distance=0, footprint=np.ones((3,3,3)), exclude_border=1)
+            localMax = np.zeros_like(D, dtype=bool)
+            if len(coordinates) > 0:
+                localMax[tuple(coordinates.T)] = True
 
             markers = labelImage(localMax, structure=np.ones((3,3,3)))[0]
 
@@ -860,7 +863,10 @@ class ROI2D_Creator(QObject):
 
             if applyWatershed:
                 D = cv2.distanceTransform(im, cv2.DIST_L2, maskSize)
-                Ma = peak_local_max(D, indices=False, footprint=np.ones((3,3)), min_distance=minDistance, labels=im)
+                coordinates = peak_local_max(D, footprint=np.ones((3,3)), min_distance=minDistance, labels=im)
+                Ma = np.zeros_like(D, dtype=bool)
+                if len(coordinates) > 0:
+                    Ma[tuple(coordinates.T)] = True
                 foreground_labels = cv2.connectedComponents(Ma.astype(np.uint8)*255)[1]
 
                 labels = watershed(-D, foreground_labels, mask=im)
