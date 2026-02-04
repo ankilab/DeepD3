@@ -1,2 +1,3 @@
 deepd3
-tensorflow
+numpy==1.24.2
+tensorflow==2.10.1
