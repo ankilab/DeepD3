@@ -1,18 +1,6 @@
 [![DeepD3 project website](https://img.shields.io/website-up-down-green-red/https/naereen.github.io.svg)](https://deepd3.forschung.fau.de/)
 [![Documentation Status](https://readthedocs.org/projects/deepd3/badge/?version=latest)](https://deepd3.readthedocs.io/en/latest/?badge=latest)
 
-## ⚠️ Temporary Notice: DeepD3 bugs
-
-DeepD3 is currently experiencing some bugs.  
-We are actively working on fixing these issues.
-
-**Until further notice:**
-- Please **clone the repository directly** using `git clone`
-- **Do not use `pip install`** for installation
-
-Thank you for your patience while we resolve this.
-
-
 # DeepD3
 
 We provide DeepD3, a framework for the **d**etection of **d**endritic spines and **d**endrites.
@@ -35,7 +23,7 @@ Then, installing DeepD3 is as easy as follows:
 
 Now, you have access to almost all the DeepD3 functionalities.
 
-If you want to use the DeepD3 Neural Network inference mode, please install **Tensorflow** using either of the following commands:
+If you want to use the DeepD3 Neural Network inference mode, please install **Tensorflow** using either of the following commands (see requirements re the correct version!):
 
     # With CPU support only
     conda install tensorflow
