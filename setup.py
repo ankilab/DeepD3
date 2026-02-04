@@ -17,7 +17,6 @@ setup(
     packages=find_packages(),
     install_requires=[
         "pyqtgraph>=0.10.0",
-        "numpy",
         "numba",
         "flammkuchen",
         "pyqt5",
