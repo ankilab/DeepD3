@@ -10,7 +10,7 @@ setup(
     name="deepd3",
     long_description=long_description,
     long_description_content_type='text/markdown',
-    version="0.1",
+    version="0.2",
     author="Andreas M Kist",
     author_email="andreas.kist@fau.de",
     license="GPLv3",
