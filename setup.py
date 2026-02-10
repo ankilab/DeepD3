@@ -16,6 +16,8 @@ setup(
     license="GPLv3",
     packages=find_packages(),
     install_requires=[
+        "numpy==1.24.2",
+        "tensorflow==2.10.1",
         "pyqtgraph>=0.10.0",
         "numba",
         "flammkuchen",
