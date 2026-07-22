@@ -47,7 +47,7 @@ class ExportFolder(QObject):
                 df.to_csv(os.path.join(subtarget, str(i['ROI_id'])+".csv"), index=False)
 
             # Tell GUI that there's some progress
-            self.zSignal.emit(int(z), len(self.rois.keys()))
+            self.zSignal.emit(int(k), len(self.rois.keys()))
 
 
 class ExportImageJ(QObject):
